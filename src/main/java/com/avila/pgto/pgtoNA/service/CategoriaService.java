@@ -2,6 +2,7 @@ package com.avila.pgto.pgtoNA.service;
 
 import com.avila.pgto.pgtoNA.domain.Categoria;
 import com.avila.pgto.pgtoNA.repository.CategoriaRepository;
+import com.avila.pgto.pgtoNA.service.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,12 @@ public class CategoriaService {
 
 
     public Optional<Categoria> buscarPorId(Integer id){
-        return categoriaRepository.findById(id);
+        Optional<Categoria> obj = categoriaRepository.findById(id);
+        if(obj.isEmpty()){
+             throw new ObjectNotFoundException("Objeto não encontrado! id: " + id + " Tipo: " + Categoria.class.getName());
+        }
+
+        return obj;
     }
 
 }

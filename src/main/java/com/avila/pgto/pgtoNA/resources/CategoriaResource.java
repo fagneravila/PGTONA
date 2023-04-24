@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -35,7 +36,7 @@ public class CategoriaResource {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> find(@PathVariable Integer id){
-          Categoria cat = categoriaService.buscarPorId(id).get();
+          Optional<Categoria> cat = categoriaService.buscarPorId(id);
           return ResponseEntity.ok().body(cat);
     }
 
