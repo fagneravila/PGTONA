@@ -1,8 +1,12 @@
 package com.avila.pgto.pgtoNA;
 
 import com.avila.pgto.pgtoNA.domain.Categoria;
+import com.avila.pgto.pgtoNA.domain.Cidade;
+import com.avila.pgto.pgtoNA.domain.Estado;
 import com.avila.pgto.pgtoNA.domain.Produto;
 import com.avila.pgto.pgtoNA.repository.CategoriaRepository;
+import com.avila.pgto.pgtoNA.repository.CidadeRepository;
+import com.avila.pgto.pgtoNA.repository.EstadoRepository;
 import com.avila.pgto.pgtoNA.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -20,6 +24,12 @@ public class PgtoNaApplication implements CommandLineRunner {
 	private CategoriaRepository categoriaRepository;
 	@Autowired
 	private ProdutoRepository produtoRepository;
+
+	@Autowired
+	private EstadoRepository estadoRepository;
+
+	@Autowired
+	private CidadeRepository cidadeRepository;
 
 
 	public static void main(String[] args) {
@@ -45,6 +55,24 @@ public class PgtoNaApplication implements CommandLineRunner {
 		categoriaRepository.saveAll(Arrays.asList(cat1,cat2));
 		produtoRepository.saveAll(Arrays.asList(p1,p2,p3));
 
+		Estado e = new Estado(null,"Piaui");
+		Estado e1 = new Estado(null,"Distrito Federal");
+		Estado e2 = new Estado(null, "Goiais");
+
+
+		Cidade c1 = new Cidade(null,"Samambaia",e1);
+		Cidade c2 = new Cidade(null, "Gama", e1);
+		Cidade c3 = new Cidade(null, "Monte Alegre", e);
+		Cidade c4 = new Cidade(null,"Cristalina",e2);
+
+
+	//	e.getCidades().addAll(Arrays.asList(c3));
+	//	e1.getCidades().addAll(Arrays.asList(c1,c2));
+	//	e2.getCidades().addAll(Arrays.asList(c4));
+
+
+		estadoRepository.saveAll(Arrays.asList(e,e1,e2));
+		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3,c4));
 
 
 
