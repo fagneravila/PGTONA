@@ -1,21 +1,14 @@
 package com.avila.pgto.pgtoNA;
 
-import com.avila.pgto.pgtoNA.domain.Categoria;
-import com.avila.pgto.pgtoNA.domain.Cidade;
-import com.avila.pgto.pgtoNA.domain.Estado;
-import com.avila.pgto.pgtoNA.domain.Produto;
-import com.avila.pgto.pgtoNA.repository.CategoriaRepository;
-import com.avila.pgto.pgtoNA.repository.CidadeRepository;
-import com.avila.pgto.pgtoNA.repository.EstadoRepository;
-import com.avila.pgto.pgtoNA.repository.ProdutoRepository;
+import com.avila.pgto.pgtoNA.domain.*;
+import com.avila.pgto.pgtoNA.domain.enums.TipoCliente;
+import com.avila.pgto.pgtoNA.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 @SpringBootApplication
 public class PgtoNaApplication implements CommandLineRunner {
@@ -31,6 +24,11 @@ public class PgtoNaApplication implements CommandLineRunner {
 	@Autowired
 	private CidadeRepository cidadeRepository;
 
+	@Autowired
+	private ClienteRepository clienteRepository;
+
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(PgtoNaApplication.class, args);
@@ -66,14 +64,21 @@ public class PgtoNaApplication implements CommandLineRunner {
 		Cidade c4 = new Cidade(null,"Cristalina",e2);
 
 
-	//	e.getCidades().addAll(Arrays.asList(c3));
-	//	e1.getCidades().addAll(Arrays.asList(c1,c2));
-	//	e2.getCidades().addAll(Arrays.asList(c4));
-
+		//	e.getCidades().addAll(Arrays.asList(c3));
+		//	e1.getCidades().addAll(Arrays.asList(c1,c2));
+		//	e2.getCidades().addAll(Arrays.asList(c4));
 
 		estadoRepository.saveAll(Arrays.asList(e,e1,e2));
 		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3,c4));
 
+		Cliente cli1 = new Cliente(null, "Maria", "maria@gamil.com","3637892377",TipoCliente.PESSOAFISICA );
+		cli1.getTelefones().addAll(Arrays.asList("213655680","124546547"));
+
+
+		Endereco ed1 = new Endereco(null,"QR 405", "28","Casa","Samambaia", "72319207",cli1,c1);
+		Endereco ed2 = new Endereco(null,"QR 208", "10","Casa","Samambaia", "72319207",cli1,c2);
+		clienteRepository.save(cli1);
+		enderecoRepository.saveAll(Arrays.asList(ed1,ed2));
 
 
 	}
