@@ -1,6 +1,7 @@
 package com.avila.pgto.pgtoNA.domain;
 
 import com.avila.pgto.pgtoNA.domain.enums.TipoCliente;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -18,6 +19,7 @@ public class Cliente implements Serializable {
     private String cpfOuCnpj;
     private Integer tipo;  // armazenar inteiro e para o externo o tipo cliente
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos = new ArrayList<>();
 
