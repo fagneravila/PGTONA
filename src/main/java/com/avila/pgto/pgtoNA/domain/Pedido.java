@@ -1,6 +1,7 @@
 package com.avila.pgto.pgtoNA.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -11,6 +12,7 @@ import java.util.Set;
 
 @Entity
 public class Pedido implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -18,8 +20,10 @@ public class Pedido implements Serializable {
     @JsonFormat(pattern="dd/MM/yyyy HH:mm")
     private Date instante;
 
+
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
     private Pagamento pagamento;
+
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
@@ -28,6 +32,7 @@ public class Pedido implements Serializable {
     @ManyToOne
     @JoinColumn(name = "endereco_de_entrega_id")
     private Endereco enderecoDeEntrega;
+
 
     @OneToMany(mappedBy = "id.pedido")
     private Set<ItemPedido> itens = new HashSet<>();

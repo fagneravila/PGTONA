@@ -1,6 +1,8 @@
 package com.avila.pgto.pgtoNA.domain;
 
 import com.avila.pgto.pgtoNA.domain.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -17,6 +19,8 @@ public abstract class Pagamento implements Serializable {
     private Integer id;
     private Integer estado;
 
+
+    @JsonIgnore
     @JoinColumn(name="pedido_id")
     @OneToOne
     @MapsId

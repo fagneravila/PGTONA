@@ -1,6 +1,7 @@
 package com.avila.pgto.pgtoNA.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -20,7 +21,7 @@ public class Endereco implements Serializable {
     private String bairro;
     private String cep;
 
-
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
