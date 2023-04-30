@@ -1,6 +1,7 @@
 package com.avila.pgto.pgtoNA.service;
 
 import com.avila.pgto.pgtoNA.domain.Categoria;
+import com.avila.pgto.pgtoNA.dto.CategoriaDTO;
 import com.avila.pgto.pgtoNA.repository.CategoriaRepository;
 import com.avila.pgto.pgtoNA.service.exceptions.DataIntegrityException;
 import com.avila.pgto.pgtoNA.service.exceptions.ObjectNotFoundException;
@@ -60,6 +61,10 @@ public class CategoriaService {
     public Page<Categoria> findPage(Integer page,Integer linesPerPage, String orderBy, String direction ){
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
         return  categoriaRepository.findAll(pageRequest);
+    }
+
+    public Categoria fromDTO(CategoriaDTO categoriaDTO){
+        return new Categoria(categoriaDTO.getId(), categoriaDTO.getNome());
     }
 
 }

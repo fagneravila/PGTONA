@@ -3,6 +3,7 @@ package com.avila.pgto.pgtoNA.resources;
 import com.avila.pgto.pgtoNA.domain.Categoria;
 import com.avila.pgto.pgtoNA.dto.CategoriaDTO;
 import com.avila.pgto.pgtoNA.service.CategoriaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -49,14 +50,17 @@ public class CategoriaResource {
     }
 
     @PostMapping
-    public ResponseEntity<Void> inserir(@RequestBody Categoria categoria){
-        categoria = categoriaService.inserir(categoria);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(categoria.getId()).toUri();
+    public ResponseEntity<Void> inserir(@Valid @RequestBody CategoriaDTO categoriaDTO){
+        Categoria cat = categoriaService.fromDTO(categoriaDTO);
+        cat = categoriaService.inserir(cat);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(cat.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Void> update(@PathVariable Integer id, @RequestBody Categoria categoria){
+    public ResponseEntity<Void> update(@PathVariable Integer id,@Valid @RequestBody CategoriaDTO categoriaDTO){
+        Categoria categoria = categoriaService.fromDTO(categoriaDTO);
+
         categoria.setId(id);
         categoria = categoriaService.update(categoria);
         return ResponseEntity.noContent().build();
