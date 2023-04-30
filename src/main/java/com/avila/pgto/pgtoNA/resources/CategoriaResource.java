@@ -1,6 +1,7 @@
 package com.avila.pgto.pgtoNA.resources;
 
 import com.avila.pgto.pgtoNA.domain.Categoria;
+import com.avila.pgto.pgtoNA.dto.CategoriaDTO;
 import com.avila.pgto.pgtoNA.service.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -29,6 +32,14 @@ public class CategoriaResource {
 
      return lista;
     }*/
+
+
+    @GetMapping()
+    public ResponseEntity<List<CategoriaDTO>> findAll(){
+        List<Categoria> list = categoriaService.findAll();
+        List<CategoriaDTO> listDTO = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDTO);
+    }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Categoria> find(@PathVariable Integer id){
