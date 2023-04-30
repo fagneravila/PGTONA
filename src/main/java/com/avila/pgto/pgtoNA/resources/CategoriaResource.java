@@ -8,9 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 
 @RestController
@@ -33,9 +30,9 @@ public class CategoriaResource {
      return lista;
     }*/
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> find(@PathVariable Integer id){
-          Optional<Categoria> cat = categoriaService.buscarPorId(id);
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Categoria> find(@PathVariable Integer id){
+          Categoria cat = categoriaService.find(id).get();
           return ResponseEntity.ok().body(cat);
     }
 
@@ -44,6 +41,19 @@ public class CategoriaResource {
         categoria = categoriaService.inserir(categoria);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(categoria.getId()).toUri();
         return ResponseEntity.created(uri).build();
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Void> update(@PathVariable Integer id, @RequestBody Categoria categoria){
+        categoria.setId(id);
+        categoria = categoriaService.update(categoria);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id){
+        categoriaService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
