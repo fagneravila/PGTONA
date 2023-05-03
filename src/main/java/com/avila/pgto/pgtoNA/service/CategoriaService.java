@@ -6,7 +6,6 @@ import com.avila.pgto.pgtoNA.repository.CategoriaRepository;
 import com.avila.pgto.pgtoNA.service.exceptions.DataIntegrityException;
 import com.avila.pgto.pgtoNA.service.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -43,9 +42,9 @@ public class CategoriaService {
 
 
     public Categoria update(Categoria categoria){
-         find(categoria.getId());
-
-            return categoriaRepository.save(categoria);
+       Categoria newCat =  find(categoria.getId()).get();
+       updateData(newCat, categoria);
+       return categoriaRepository.save(newCat);
 
     }
 
@@ -65,6 +64,11 @@ public class CategoriaService {
 
     public Categoria fromDTO(CategoriaDTO categoriaDTO){
         return new Categoria(categoriaDTO.getId(), categoriaDTO.getNome());
+    }
+
+    private void updateData(Categoria newObj, Categoria obj){
+        newObj.setNome(obj.getNome());
+
     }
 
 }
