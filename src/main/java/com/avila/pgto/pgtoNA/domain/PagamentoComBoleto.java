@@ -1,11 +1,13 @@
 package com.avila.pgto.pgtoNA.domain;
 
 import com.avila.pgto.pgtoNA.domain.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import jakarta.persistence.Entity;
 
 import java.util.Date;
 
 @Entity
+@JsonTypeName("pagamentoComBoleto")
 public class PagamentoComBoleto extends Pagamento{
 
     private static final long serialVersionUID = 1L;

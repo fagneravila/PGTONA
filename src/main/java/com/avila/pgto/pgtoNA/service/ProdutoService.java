@@ -12,7 +12,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProdutoService {
@@ -28,8 +27,8 @@ public class ProdutoService {
     }
 
 
-    public Optional<Produto> buscaId(Integer id){
-        Optional<Produto> obj = produtoRepository.findById(id);
+    public Produto buscaId(Integer id){
+     Produto obj = produtoRepository.findById(id).get();
         if(obj == null){
             throw  new ObjectNotFoundException("Objeto não encontrado| Id: " + id);
         }

@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController
@@ -34,8 +33,8 @@ public class ProdutoResource {
     }*/
 
     @RequestMapping("/{id}")
-    public ResponseEntity<?> buscarPorId(@PathVariable Integer id){
-          Optional<Produto> ped = produtoService.buscaId(id);
+    public ResponseEntity<Produto> buscarPorId(@PathVariable Integer id){
+          Produto ped = produtoService.buscaId(id);
           return ResponseEntity.ok().body(ped);
     }
 
