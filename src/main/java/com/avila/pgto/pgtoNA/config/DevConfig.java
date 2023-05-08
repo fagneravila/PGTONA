@@ -1,6 +1,8 @@
 package com.avila.pgto.pgtoNA.config;
 
 import com.avila.pgto.pgtoNA.service.DBService;
+import com.avila.pgto.pgtoNA.service.EmailService;
+import com.avila.pgto.pgtoNA.service.MockEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +20,10 @@ public class DevConfig {
     public boolean instantiateDataBase() throws ParseException {
       dbService.InstateateTestDataBase();
         return true;
+    }
+    @Bean
+    public EmailService emailService(){
+        return new MockEmailService();
     }
 
 }

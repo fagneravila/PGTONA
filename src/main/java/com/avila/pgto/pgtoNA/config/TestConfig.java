@@ -1,6 +1,8 @@
 package com.avila.pgto.pgtoNA.config;
 
 import com.avila.pgto.pgtoNA.service.DBService;
+import com.avila.pgto.pgtoNA.service.EmailService;
+import com.avila.pgto.pgtoNA.service.MockEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -29,4 +31,8 @@ public class TestConfig {
         return true;
     }
 
+    @Bean
+    public EmailService emailService(){
+    return new MockEmailService();
+    }
 }
