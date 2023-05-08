@@ -43,7 +43,7 @@ public class ClienteService {
         return clienteRepository.findAll();
     }
 
-    public Optional<Cliente>find(Integer id){
+    public Optional<Cliente> find(Integer id){
         Optional<Cliente> obj = clienteRepository.findById(id);
         if(obj.isEmpty()){
             throw new ObjectNotFoundException("Objeto não encontrado! id: " + id + " Tipo: " + Cliente.class.getName());

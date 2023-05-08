@@ -1,14 +1,12 @@
 package com.avila.pgto.pgtoNA.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Entity
 public class Pedido implements Serializable {
@@ -115,5 +113,27 @@ public class Pedido implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(getId());
+    }
+
+    @Override
+    public String toString() {
+        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        final StringBuilder sb = new StringBuilder();
+        sb.append(" Pedido numero: ");
+        sb.append(getId());
+        sb.append(", Instante: ");
+        sb.append(sd.format(getInstante()));
+        sb.append(", Cliente: ");
+        sb.append(getCliente().getNome());
+        sb.append(", Situação do pagamento: ");
+        sb.append(getPagamento().getEstado().getDescricao());
+        sb.append("\n Detalhes: \n");
+        for (ItemPedido ip : getItens()){
+            sb.append(ip.toString());
+        }
+        sb.append("\n Valor Total: ");
+        sb.append(nf.format(getValorTotal()));
+        return sb.toString();
     }
 }
