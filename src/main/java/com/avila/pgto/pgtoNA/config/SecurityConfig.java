@@ -17,6 +17,7 @@ public class SecurityConfig {
     private static final String[] PUBLIC_MATCHERS = {
             "/produtos/**",
             "/categorias/**",
+            "/clientes/**",
 
     };
 

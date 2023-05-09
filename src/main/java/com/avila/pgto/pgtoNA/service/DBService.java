@@ -2,6 +2,7 @@ package com.avila.pgto.pgtoNA.service;
 
 import com.avila.pgto.pgtoNA.domain.*;
 import com.avila.pgto.pgtoNA.domain.enums.EstadoPagamento;
+import com.avila.pgto.pgtoNA.domain.enums.Perfil;
 import com.avila.pgto.pgtoNA.domain.enums.TipoCliente;
 import com.avila.pgto.pgtoNA.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,11 +113,17 @@ public class DBService {
         Cliente cli1 = new Cliente(null, "Maria", "maria@gamil.com", "3637892377", TipoCliente.PESSOAFISICA, bCryptPasswordEncoder.encode("123"));
         cli1.getTelefones().addAll(Arrays.asList("213655680", "124546547"));
 
+        Cliente cli2= new Cliente(null, "Fagner", "fagner.avila@gamil.com", "43104513902", TipoCliente.PESSOAFISICA, bCryptPasswordEncoder.encode("123"));
+        cli2.getTelefones().addAll(Arrays.asList("913655680", "824546547"));
+        cli2.addPerfil(Perfil.ADMIN);
+
 
         Endereco ed1 = new Endereco(null, "QR 405", "28", "Casa", "Samambaia", "72319207", cli1, c1);
         Endereco ed2 = new Endereco(null, "QR 208", "10", "Casa", "Samambaia", "72319207", cli1, c2);
-        clienteRepository.save(cli1);
-        enderecoRepository.saveAll(Arrays.asList(ed1, ed2));
+        Endereco ed3 = new Endereco(null, "QR 207", "19", "Casa", "Samambaia", "72319207", cli2, c2);
+
+        clienteRepository.saveAll(Arrays.asList(cli1,cli2));
+        enderecoRepository.saveAll(Arrays.asList(ed1, ed2,ed3));
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         Pedido ped1 = new Pedido(null, sdf.parse("30/03/2023 10:32"), cli1, ed1);
